@@ -1,35 +1,37 @@
 function FFTDiffAnalysis(dpath, filenames_to_analyze)
-% Calculate fft-difference for each file and display results on a special
-% GUI. Extracting samples can be done withing the GUI.
-%
-% Parameters:
-%  dpath                = path to folder where files are (string)
-%  filenames_to_analyze = cell-table of filenames as strings
+    % Calculate fft-difference for each file and display results on GUI.
+    % Extracting samples can be done withing the GUI.
+    %
+    % Parameters:
+    %  dpath                = path to folder where files are (string)
+    %  filenames_to_analyze = cell-table of filenames as strings
 
-hwait = waitbar(0, 'Calculating FFT-Difference...');
-disp('Calculating FFT-Difference...');
+    hwait = waitbar(0, 'Calculating FFT-Difference...');
+    disp('Calculating FFT-Difference...');
 
-for i=1:length(filenames_to_analyze)
-	% avg will be i=1, so start from 2
+    for i=1:length(filenames_to_analyze)
+        % avg will be i=1, so start from 2
 
-	filename = filenames_to_analyze{i};
-    
-	% load one file
-	EEG = pop_loadset(strcat(dpath, filename));
+        filename = filenames_to_analyze{i};
 
-	fnames{i} = filename;
-	condition{i} = EEG.setname;
+        % load one file
+        EEG = pop_loadset(strcat(dpath, filename));
 
-	disp(['Calculating FFT-Difference for ' filename '...']);
+        fnames{i} = filename;
+        condition{i} = EEG.setname;
 
-	[datamatrix{i} xdata{i} eventcount{i}] = calculateFFTDiff(EEG);
+        disp(['Calculating FFT-Difference for ' filename '...']);
 
-	waitbar((i)/(length(filenames_to_analyze)+1), hwait);
-end
+        [datamatrix{i}, xdata{i}, eventcount{i}] = calculateFFTDiff(EEG);
 
-disp('Calculation complete.');
-waitbar((i)/(length(filenames_to_analyze)+1), hwait);
-close(hwait);
+        waitbar((i)/(length(filenames_to_analyze)+1), hwait);
+    end
 
-% open visualizing & extraction function
-visualize1d(fnames, condition, datamatrix, xdata, eventcount, EEG.chanlocs, 'FFT-Difference', [-5 5], {'Frequency (Hz)', 'diff(|Y(f)|)'});
+    disp('Calculation complete.');
+    waitbar((i)/(length(filenames_to_analyze)+1), hwait);
+    close(hwait);
+
+    % open visualizing & extraction function
+    visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
+                EEG.chanlocs, 'FFT-Difference', [-5 5], ...
+                {'Frequency (Hz)', 'diff(|Y(f)|)'});

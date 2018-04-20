@@ -40,7 +40,7 @@ for i=1:samples
     for j=1:epochsSample
         sampleRow = round((rand * (epochs-1)) + 1 );
         sampleEEG = sampleEEG + grandEEG(:, :, sampleRow);
-    end;
+    end
     %divide by number of epochs to get the average ERP    
     sampleEEG = sampleEEG ./ epochsSample;
     erp(i,:, : ) = sampleEEG;
