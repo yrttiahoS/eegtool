@@ -9,7 +9,7 @@ function [EEG, ev_val] = removeEpoch(EEG, ev_val, rejected_epochs)
 %
 % Returns:
 %  EEG               =  eeglab EEG-dataset (epoched) if all removed->
-%	 					return empty matrix []
+%                       return empty matrix []
 %  ev_val            =  updated array of event-validity data [channel epoch]
 
 
@@ -17,7 +17,7 @@ function [EEG, ev_val] = removeEpoch(EEG, ev_val, rejected_epochs)
 % the event ( otherwise this would mess listboxes etc. in the gui )
 
 if isempty(rejected_epochs)
-	return;
+    return;
 end
 
 if length(rejected_epochs) >= EEG.trials
@@ -36,7 +36,7 @@ epochindices = 1:length(EEG.epoch);
 
 % collect all the epochs
 for i = epochindices
-	epoch(i) = EEG.epoch(i);
+    epoch(i) = EEG.epoch(i);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -50,9 +50,9 @@ end
 
 % insert the removed epoch-thing back
 if isempty(EEG.epoch)
-	% find the one epoch that was not in the list of rejected_epochs...
-	notrej = setdiff(epochindices, rejected_epochs);
-	EEG.epoch = epoch(notrej);
+    % find the one epoch that was not in the list of rejected_epochs...
+    notrej = setdiff(epochindices, rejected_epochs);
+    EEG.epoch = epoch(notrej);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

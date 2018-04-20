@@ -37,7 +37,7 @@ h.group_condition_button = uicontrol('Style', 'pushbutton', 'string', 'Group by 
 h.group_view_button = uicontrol('Style', 'togglebutton', 'string', 'Group view', 'Enable', 'off',...
                                 'units', 'normalized', 'position', [0.01 0.83 0.15 0.03], ...
                                 'tooltipstring', 'Form subject group-averages for visualization (not saved).');
-								 
+                                 
 %%%%%%%%%%%%%%%%%%%%% lower area %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -134,16 +134,16 @@ subj = get(h.subjpopup, 'Value');
 istoggled = get(h.group_view_button, 'value');
 
 if istoggled
-	% group view
-	combined = getappdata(gcf, 'combined');
-	
-	for i = 1:length(combined)
-		cdatamatrix{i} = combined(i).datamatrix;
-		cxdata{i} = combined(i).xdata;
-		cydata{i} = combined(i).ydata;
-		cchannels{i} = combined(i).channels;
-		cchanlocs = combined(i).chanlocs;
-	end
+    % group view
+    combined = getappdata(gcf, 'combined');
+    
+    for i = 1:length(combined)
+        cdatamatrix{i} = combined(i).datamatrix;
+        cxdata{i} = combined(i).xdata;
+        cydata{i} = combined(i).ydata;
+        cchannels{i} = combined(i).channels;
+        cchanlocs = combined(i).chanlocs;
+    end
     drawTf(h, cdatamatrix{subj}, cxdata{subj}, cydata{subj}, cchannels{subj}, chanlocs);
 else
     drawTf(h, datamatrix{subj}, xdata{subj}, ydata{subj}, channels{subj}, chanlocs);
@@ -156,32 +156,32 @@ istoggled = get(hObject, 'value');
 % TODO -> userdatan alustus, combined siirto userdataan jne.
 
 if istoggled
-	% group view
-	combined = getappdata(gcf, 'combined');
-	
-	for i = 1:length(combined)
-		sets{i} = combined(i).id;
-		cdatamatrix{i} = combined(i).datamatrix;
-		cxdata{i} = combined(i).xdata;
-		cydata{i} = combined(i).ydata;
-		cchannels{i} = combined(i).channels;
-		cchanlocs = combined(i).chanlocs;
-	end
+    % group view
+    combined = getappdata(gcf, 'combined');
+    
+    for i = 1:length(combined)
+        sets{i} = combined(i).id;
+        cdatamatrix{i} = combined(i).datamatrix;
+        cxdata{i} = combined(i).xdata;
+        cydata{i} = combined(i).ydata;
+        cchannels{i} = combined(i).channels;
+        cchanlocs = combined(i).chanlocs;
+    end
 
-	set(h.subjpopup, 'value', 1);
-	set(h.subjpopup, 'string', sets);
-	set(h.subjtext, 'string', 'Group');
+    set(h.subjpopup, 'value', 1);
+    set(h.subjpopup, 'string', sets);
+    set(h.subjtext, 'string', 'Group');
 
-	set(h.subjpopup, 'callback', {@edit_callback, h, cdatamatrix, cxdata, cydata, cchannels, cchanlocs});
-	drawTf(h, cdatamatrix{1}, cxdata{1}, cydata{1}, cchannels{1}, chanlocs);
+    set(h.subjpopup, 'callback', {@edit_callback, h, cdatamatrix, cxdata, cydata, cchannels, cchanlocs});
+    drawTf(h, cdatamatrix{1}, cxdata{1}, cydata{1}, cchannels{1}, chanlocs);
 else
-	% normal view
-	set(h.subjpopup, 'value', 1);
-	set(h.subjpopup, 'string', fnames);
-	set(h.subjtext, 'string', 'Participant');
-	
-	set(h.subjpopup, 'callback', {@edit_callback, h, datamatrix, xdata, ydata, channels, chanlocs});
-	drawTf(h, datamatrix{1}, xdata{1}, ydata{1}, channels{1}, chanlocs);
+    % normal view
+    set(h.subjpopup, 'value', 1);
+    set(h.subjpopup, 'string', fnames);
+    set(h.subjtext, 'string', 'Participant');
+    
+    set(h.subjpopup, 'callback', {@edit_callback, h, datamatrix, xdata, ydata, channels, chanlocs});
+    drawTf(h, datamatrix{1}, xdata{1}, ydata{1}, channels{1}, chanlocs);
 end
 
 
@@ -210,31 +210,31 @@ filecount = 0;
 
 for i = selected_conditions
 
-	participants_with_this_condition = find(strcmp(condition, uniqcondition{i}));
-	
-	for k = participants_with_this_condition
+    participants_with_this_condition = find(strcmp(condition, uniqcondition{i}));
+    
+    for k = participants_with_this_condition
         for j = channels{i}
             if firsttime
-				catmatrix{j} = datamatrix{k}{j};
-			else
-				catmatrix{j} = cat(3, catmatrix{j}, datamatrix{k}{j});
+                catmatrix{j} = datamatrix{k}{j};
+            else
+                catmatrix{j} = cat(3, catmatrix{j}, datamatrix{k}{j});
             end
         end
         firsttime = 0;
-		filecount = filecount+1;
-	end
+        filecount = filecount+1;
+    end
 end
 
 % 
 % catmatrix = [];
 % for i = selected_conditions
-% 	rows_with_this_condition = find(strcmp(condition, uniqcondition{i}));
+%   rows_with_this_condition = find(strcmp(condition, uniqcondition{i}));
 %     catmatrix = cat(3, catmatrix, datamatrix{rows_with_this_condition});
 % end
 
 % calculate means
 for j = channels{1}
-	meanmatrix{j} = mean(catmatrix{j}, 3);
+    meanmatrix{j} = mean(catmatrix{j}, 3);
 end
 
 % store to appdata% store to appdata
@@ -250,24 +250,24 @@ setappdata(gcf, 'combined', combined);
 set(h.group_view_button, 'Enable', 'on');
 
 if get(h.group_view_button, 'value')
-	% if in group-view mode, add to the end of the popupmenu
-	for i = 1:length(combined)
-		sets{i} = combined(i).id;
-		cdatamatrix{i} = combined(i).datamatrix;
-		cxdata{i} = combined(i).xdata;
-		cydata{i} = combined(i).ydata;
-		cchannels{i} = combined(i).channels;
-		cchanlocs = combined(i).chanlocs;
-	end
-	
-	set(h.subjpopup, 'callback', {@edit_callback, h, cdatamatrix, cxdata, cydata, cchannels, cchanlocs});
-	set(h.subjpopup, 'string', sets);
+    % if in group-view mode, add to the end of the popupmenu
+    for i = 1:length(combined)
+        sets{i} = combined(i).id;
+        cdatamatrix{i} = combined(i).datamatrix;
+        cxdata{i} = combined(i).xdata;
+        cydata{i} = combined(i).ydata;
+        cchannels{i} = combined(i).channels;
+        cchanlocs = combined(i).chanlocs;
+    end
+    
+    set(h.subjpopup, 'callback', {@edit_callback, h, cdatamatrix, cxdata, cydata, cchannels, cchanlocs});
+    set(h.subjpopup, 'string', sets);
 end
 
 
 function group_fname_callback(~, ~, h, fnames, datamatrix, xdata, ydata, channels, chanlocs)
 
-	
+    
 selected_participants = listdlg('PromptString','Select a file:',...
                                 'SelectionMode','multiple',...
                                 'ListString',fnames(1:end));
@@ -286,20 +286,20 @@ firsttime = 1;
 
 for i = selected_participants
 
-	for j = channels{i}
-		if firsttime 
-			catmatrix{j} = datamatrix{i}{j};
-		else
-			catmatrix{j} = cat(3, catmatrix{j}, datamatrix{i}{j});
-		end
-	end
-	
-	firsttime = 0;
+    for j = channels{i}
+        if firsttime 
+            catmatrix{j} = datamatrix{i}{j};
+        else
+            catmatrix{j} = cat(3, catmatrix{j}, datamatrix{i}{j});
+        end
+    end
+    
+    firsttime = 0;
 end
 
 % calculate means
 for j = channels{1}
-	meanmatrix{j} = mean(catmatrix{j}, 3);
+    meanmatrix{j} = mean(catmatrix{j}, 3);
 end
 
 % store to appdata
@@ -315,18 +315,18 @@ setappdata(gcf, 'combined', combined);
 set(h.group_view_button, 'Enable', 'on');
 
 if get(h.group_view_button, 'value')
-	% if in group-view mode, add to the end of the popupmenu
-	for i = 1:length(combined)
-		sets{i} = combined(i).id;
-		cdatamatrix{i} = combined(i).datamatrix;
-		cxdata{i} = combined(i).xdata;
-		cydata{i} = combined(i).ydata;
-		cchannels{i} = combined(i).channels;
-		cchanlocs = combined(i).chanlocs;
-	end
+    % if in group-view mode, add to the end of the popupmenu
+    for i = 1:length(combined)
+        sets{i} = combined(i).id;
+        cdatamatrix{i} = combined(i).datamatrix;
+        cxdata{i} = combined(i).xdata;
+        cydata{i} = combined(i).ydata;
+        cchannels{i} = combined(i).channels;
+        cchanlocs = combined(i).chanlocs;
+    end
 
-	set(h.subjpopup, 'string', sets);
-	set(h.subjpopup, 'callback', {@edit_callback, h, cdatamatrix, cxdata, cydata, cchannels, cchanlocs});
+    set(h.subjpopup, 'string', sets);
+    set(h.subjpopup, 'callback', {@edit_callback, h, cdatamatrix, cxdata, cydata, cchannels, cchanlocs});
 end
 
 

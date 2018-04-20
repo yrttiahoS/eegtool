@@ -11,14 +11,14 @@ function [ EEG2 ] = reReference(EEG, ref, excludechan)
 
 % eeglab will remove the epoch from the struct if only one :(
 if length(EEG.epoch) == 1
-	preserved = 1;
-	epoch = EEG.epoch;
+    preserved = 1;
+    epoch = EEG.epoch;
 else 
-	preserved = 0;
+    preserved = 0;
 end
 
 EEG2 = pop_reref(EEG, ref, 'exclude', excludechan);
 
 if preserved
-	EEG2.epoch = epoch;
+    EEG2.epoch = epoch;
 end

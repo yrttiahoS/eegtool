@@ -25,7 +25,7 @@ type = unique(stringtypes);
 
 % generate figure and switch off unneeded figure controls
 h.fig = figure('position', [400 400 150 300], 'menubar', 'none', ...
-               'numbertitle', 'off', 'color', 'white');	
+               'numbertitle', 'off', 'color', 'white');
 
 % move gui to the center of the screen
 movegui(gcf, 'center');

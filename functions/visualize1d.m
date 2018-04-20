@@ -199,7 +199,7 @@ end
 % find all the files or participants having this condition
 catmatrix=[];
 for i=selected_conditions
-	rows_with_this_condition = find(strcmp(condition, uniqcondition{i}));
+    rows_with_this_condition = find(strcmp(condition, uniqcondition{i}));
     catmatrix = cat(3, catmatrix, datamatrix{rows_with_this_condition});
 end
 

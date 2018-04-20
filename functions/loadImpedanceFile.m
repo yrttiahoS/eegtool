@@ -19,9 +19,9 @@ all_impedances = C{2};
 ids = C{1};
 
 for i = 1:length(ids)
-	b = str2num(ids{i});
-	if ~isempty(b)
-		channelvector(i) = b;
-		impedancevector(i) = all_impedances(i);
-	end
+    b = str2num(ids{i});
+    if ~isempty(b)
+        channelvector(i) = b;
+        impedancevector(i) = all_impedances(i);
+    end
 end

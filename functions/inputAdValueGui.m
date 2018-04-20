@@ -1,5 +1,5 @@
 function [vector, option, ismarked, ismarked2] = inputAdValueGui(advicestring1, advicestring2, advicestring3, advicestring4, ...
-	                                                  options, defaultchoise, defaultstring, ismarked, ismarked2)
+                                                      options, defaultchoise, defaultstring, ismarked, ismarked2)
 % function invokes a GUI which lets user to type the artefact detection parameters as a vector
 %
 % Parameters: 
@@ -19,7 +19,7 @@ function [vector, option, ismarked, ismarked2] = inputAdValueGui(advicestring1, 
 
 % generate figure and switch off unneeded figure controls
 h.fig = figure('position', [400 400 200 200], 'menubar', 'none', ...
-               'numbertitle', 'off', 'color', 'white');	
+               'numbertitle', 'off', 'color', 'white'); 
 
 % move gui to the center of the screen
 movegui(gcf, 'center');
@@ -27,22 +27,22 @@ movegui(gcf, 'center');
 % define ui elements
 
 h.vectortext1 = uicontrol('Style', 'text', 'string', advicestring1, 'position', ...
-	                      [5 160 90 30], 'backgroundcolor', [1 1 1]);
+                          [5 160 90 30], 'backgroundcolor', [1 1 1]);
 h.vectortext2 = uicontrol('Style', 'text', 'string', advicestring2, 'position', ...
-	                      [105 160 90 30], 'backgroundcolor', [1 1 1]);
+                          [105 160 90 30], 'backgroundcolor', [1 1 1]);
 
 h.optionpopup = uicontrol('Style', 'popupmenu', 'string', options, 'position', [10 120 110 30]);
 h.vectoredit = uicontrol('Style', 'edit', 'string', defaultstring, 'position', [130 128 60 20]);
 
 h.vectortext3 = uicontrol('Style', 'text', 'string', advicestring3, 'position', ...
-	                      [10 80 150 30], 'backgroundcolor', [1 1 1], 'horizontalalignment', 'left');
+                          [10 80 150 30], 'backgroundcolor', [1 1 1], 'horizontalalignment', 'left');
 h.markerbox = uicontrol('Style', 'checkbox', 'value', str2num(ismarked), 'position', ...
-	                    [165 85 15 30], 'backgroundcolor', [1 1 1]);
+                        [165 85 15 30], 'backgroundcolor', [1 1 1]);
 
 h.vectortext4 = uicontrol('Style', 'text', 'string', advicestring4, 'position', ...
-	                      [10 40 150 30], 'backgroundcolor', [1 1 1], 'horizontalalignment', 'left');
+                          [10 40 150 30], 'backgroundcolor', [1 1 1], 'horizontalalignment', 'left');
 h.markerbox2 = uicontrol('Style', 'checkbox', 'value', str2num(ismarked2), ...
-	                     'position', [165 45 15 30], 'backgroundcolor', [1 1 1]);
+                         'position', [165 45 15 30], 'backgroundcolor', [1 1 1]);
 
 
 h.readyb = uicontrol('Style', 'pushbutton', 'string', 'Ok', ...

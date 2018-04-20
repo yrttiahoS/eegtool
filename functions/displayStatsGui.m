@@ -10,7 +10,7 @@ function displayStatsGui(advicestring, setname, eventids, removed_epochs)
 
 % generate figure and switch off unneeded figure controls
 h.fig = figure('position', [400 400 200 250], 'menubar', 'none', ...
-               'numbertitle', 'off', 'color', 'white');	
+               'numbertitle', 'off', 'color', 'white');
 
 % move gui to the center of the screen
 movegui(gcf, 'center');
@@ -43,5 +43,4 @@ h.copyb = uicontrol('Style', 'pushbutton', 'string', 'Copy summary to clipboard'
                    'horizontalalignment', 'center', 'position', [10 40 180 25], 'callback', {@copy_callback, copystring});
 
 function copy_callback(~, ~, copystring)
-
- clipboard('copy', copystring);
+    clipboard('copy', copystring);

@@ -22,7 +22,7 @@ else
     settings{5} = 'RMS';      %default artefact detection type
     settings{6} = '40';       %default artefact detection treshold
     settings{7} = '0';        %default artefact detection visualization ison
-	settings{8} = '1';        %default artefact detection overwrite ison
+    settings{8} = '1';        %default artefact detection overwrite ison
 
    % msgbox('Default settings restored.','Notification','help');
 end

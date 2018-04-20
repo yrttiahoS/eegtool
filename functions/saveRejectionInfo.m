@@ -23,9 +23,9 @@ end
 fid = fopen(rejfile, 'a+');
 
 if(fid == -1)
-	% do nothing
-	warning('Could not open the file to write EEG-statistics.');
-	return;
+    % do nothing
+    warning('Could not open the file to write EEG-statistics.');
+    return;
 end
 
 if firsttime
@@ -36,13 +36,13 @@ end
 [row, col] = size(urev_val);
 
 for i=1:col
-	if isempty(find(rejepochs == i, 1))
-		rej = 0;
-	else 
-		rej = 1;
-	end
-	
-	fprintf(fid, [fname ',' stimid ',' num2str(i) ',' num2str(rej) '\n']);
+    if isempty(find(rejepochs == i, 1))
+        rej = 0;
+    else 
+        rej = 1;
+    end
+    
+    fprintf(fid, [fname ',' stimid ',' num2str(i) ',' num2str(rej) '\n']);
 end
 
 fclose(fid);
