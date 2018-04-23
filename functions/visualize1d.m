@@ -1,15 +1,15 @@
 function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
                       chanlocs, atype, limits, axisid)
-    % This function displays 1-d ERP-type data on a head GUI. Various outputs
-    % can be taken out of the function such as mean, max or min. 
+    % This function displays 1-d ERP-type data on a head GUI. Various
+    % outputs can be taken out of the function such as mean, max or min. 
     %
     % Parameters:
-    %  fnames     = cell table with i cells. i:th cell identifiers of i:th row
-    %               in datamatrix and xdata
+    %  fnames     = cell table with i cells. i:th cell identifiers of i:th
+    %               row in datamatrix and xdata
     %  condition  = cell table with i cells. i:th cell is the condition for
     %               i:th file. This allows grouping by condition. 
-    %  datamatrix = cell table with i cells. Cell i is the datamatrix [nbchan,
-    %               nbpoints] for fnames{i}
+    %  datamatrix = cell table with i cells. Cell i is the datamatrix
+    %               [nbchan, nbpoints] for fnames{i}
     %  xdata      = x-axis pointvector for the i:th datamatrix
     %  eventcount = vector of event counts for each file
     %  chanlocs   = channel locations struct (eeglab-format)
@@ -24,9 +24,7 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
     % draw the head-background gui and store figure handle
     h.visualize1d = headGui(['Eegtool - ' atype ' visualization']);
 
-    % define gui elements
-
-    %%%%%%%%%%%%%%%%%%%%% upper area %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % define gui elements: upper area
     h.subjtext = uicontrol('Style', 'text', 'string', 'File', ...
                            'units', 'normalized', 'position', ...
                            [0.01 0.955 0.03 0.03], 'horizontalalignment', ...
@@ -45,7 +43,8 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
     h.group_condition_button = uicontrol('Style', 'pushbutton', 'string', ...
                                          'Group by condition', 'units', ...
                                          'normalized', 'position', ...
-                                         [0.01 0.87 0.15 0.03], 'tooltipstring',
+                                         [0.01 0.87 0.15 0.03], ...
+                                         'tooltipstring', ...
                                          'Form subject group-averages for visualization (not saved).');
 
     h.difference_button = uicontrol('Style', 'pushbutton', 'string', ...
@@ -94,16 +93,16 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
                         'normalized', 'position', [0.34 0.01 0.05 0.03]);
 
     h.ranget2 = uicontrol('Style', 'text', 'string', 'Range2(x-axis)', ...
-                          'visible', 'off', 'HorizontalAlignment', 'left', ...
-                          'units', 'normalized', 'position', ...
+                          'visible', 'off', 'HorizontalAlignment', ...
+                          'left', 'units', 'normalized', 'position', ...
                           [0.19 0.05 0.08 0.03]);
                    
-    h.xmine2 = uicontrol('Style', 'edit', 'string', 'min', 'visible', 'off', ...
-                         'units', 'normalized', 'position', ...
+    h.xmine2 = uicontrol('Style', 'edit', 'string', 'min', 'visible', ...
+                         'off', 'units', 'normalized', 'position', ...
                          [0.28 0.05 0.05 0.03]);
 
-    h.xmaxe2 = uicontrol('Style', 'edit', 'string', 'max', 'visible', 'off',...
-                         'units', 'normalized', 'position', ...
+    h.xmaxe2 = uicontrol('Style', 'edit', 'string', 'max', 'visible', ...
+                         'off', 'units', 'normalized', 'position', ...
                          [0.34 0.05 0.05 0.03]);
                    
     h.range2_helpt = uicontrol('Style', 'text', 'string', ...
@@ -117,12 +116,13 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
                                   'position', [0.70 0.01 0.13 0.03]);
 
     h.extract_raw_button = uicontrol('Style', 'pushbutton', 'string', ...
-                                     'Extract raw', 'units', 'normalized', ...
-                                     'position', [0.85 0.05 0.13 0.03]);
+                                     'Extract raw', 'units',  ...
+                                     'normalized', 'position', ...
+                                     [0.85 0.05 0.13 0.03]);
 
-    h.extract_button = uicontrol('Style', 'pushbutton', 'string', 'Extract', ...
-                                 'units', 'normalized', 'position', ...
-                                 [0.85 0.01 0.13 0.03]);
+    h.extract_button = uicontrol('Style', 'pushbutton', 'string',  ...
+                                 'Extract', 'units', 'normalized', ...
+                                 'position', [0.85 0.01 0.13 0.03]);
 
     h.doublearea_tag = uicontrol('Style', 'radiobutton', 'string', ...
                                  'Difference between ranges', 'units', ...
@@ -133,9 +133,9 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
     hChildren = get(gcf, 'Children');
     set(hChildren(strcmp(get(hChildren, 'style'), 'text')), ...
         'backgroundcolor', [1 1 1]);
-    set(hChildren(strcmp(get(hChildren, 'style'), 'checkbox')),
+    set(hChildren(strcmp(get(hChildren, 'style'), 'checkbox')), ...
         'backgroundcolor', [1 1 1]);
-    set(hChildren(strcmp(get(hChildren, 'style'), 'radiobutton')),
+    set(hChildren(strcmp(get(hChildren, 'style'), 'radiobutton')), ...
         'backgroundcolor', [1 1 1]);
 
 
@@ -149,12 +149,14 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
 
     % draw axes to their righteous places
     %%%%%%%%%%%wrong parameters -> known
-    h.haxes = drawTopoAxis(h.visualize1d, chanlocs, axdim, axisid{1}, axisid{2});
+    h.haxes = drawTopoAxis(h.visualize1d, chanlocs, axdim, axisid{1}, ...
+                           axisid{2});
 
-    set(h.group_fname_button, 'callback', {@group_fnameCallback, h, fnames, ...
-                                           datamatrix, xdata, chanlocs});
-    set(h.group_condition_button, 'callback', {@group_conditionCallback, h, ...
-                                               condition, datamatrix, ...
+    set(h.group_fname_button, 'callback', {@group_fnameCallback, h, ...
+                                           fnames, datamatrix, xdata, ...
+                                           chanlocs});
+    set(h.group_condition_button, 'callback', {@group_conditionCallback, ...
+                                               h, condition, datamatrix, ...
                                                xdata, chanlocs});
     set(h.difference_button, 'callback', {@differenceCallback, h, ...
                                           datamatrix, xdata, chanlocs});
@@ -165,13 +167,14 @@ function  visualize1d(fnames, condition, datamatrix, xdata, eventcount, ...
     set(h.yminedit, 'callback', {@editCallback, h, datamatrix, xdata, ...
                                  chanlocs});
     set(h.extract_button, 'callback', {@extractCallback, h, datamatrix, ...
-                                       xdata, fnames, eventcount, chanlocs, ...
-                                       atype});
+                                       xdata, fnames, eventcount, ...
+                                       chanlocs, atype});
     set(h.extract_raw_button, 'callback', {@extract_rawCallback, h, ...
                                            datamatrix, xdata, fnames, ...
                                            eventcount, chanlocs, atype});
-    set(h.topoplot_button, 'callback', {@topoplotCallback, h, datamatrix, ...
-                                        xdata, fnames, eventcount, chanlocs});
+    set(h.topoplot_button, 'callback', {@topoplotCallback, h, ...
+                                        datamatrix, xdata, fnames, ...
+                                        eventcount, chanlocs});
     set(h.doublearea_tag, 'callback', {@doubleareaCallback, h});
 
     % plot the initial state of the gui
@@ -222,8 +225,8 @@ function doubleareaCallback(hObject,~, h)
        set(h.range2_helpt, 'visible', 'off');
     end
 
-
-function group_conditionCallback(~,~, h, condition, datamatrix, xdata, chanlocs)
+function group_conditionCallback(~,~, h, condition, datamatrix, xdata, ...
+                                 chanlocs)
 
     uniqcondition = unique(condition);
 
@@ -301,22 +304,25 @@ function differenceCallback(~,~, h, datamatrix, xdata, chanlocs)
         id_cell{i} = combined(i).id;
     end
 
-    selected_conditions_1 = listdlg('PromptString','Select a minuend condition:',...
+    selected_conditions_1 = listdlg('PromptString',...
+                                    'Select a minuend condition:',...
                                     'SelectionMode','single',...
                                     'ListString', id_cell);
 
-    selected_conditions_2 = listdlg('PromptString','Select a subtrahend condition:',...
+    selected_conditions_2 = listdlg('PromptString',...
+                                    'Select a subtrahend condition:',...
                                     'SelectionMode','single',...
                                     'ListString', id_cell);
                                 
     setname = inputdlg('Give name to a set', 'Prompt', 1, {['Set ' num2str(len+1)]});
 
-    if isempty(selected_conditions_1) || isempty(selected_conditions_2) || isempty(setname{1})
+    if isempty(selected_conditions_1) || isempty(selected_conditions_2) ...
+               || isempty(setname{1})
         return;
-    end             
+    end     
 
-
-    difdata = combined(selected_conditions_1).data - combined(selected_conditions_2).data;
+    difdata = combined(selected_conditions_1).data - ...
+              combined(selected_conditions_2).data;
 
     combined(len+1).id = setname{1};
     combined(len+1).data = difdata;
@@ -324,13 +330,9 @@ function differenceCallback(~,~, h, datamatrix, xdata, chanlocs)
 
     updateView(h, datamatrix, xdata, chanlocs);
 
-
 function editCallback(~, ~, h, datamatrix, xdata, chanlocs)
     % function to update the view after changes
-
-
     updateView(h, datamatrix, xdata, chanlocs);
-
 
 function updateView(h, datamatrix, xdata, chanlocs)
 
@@ -338,7 +340,6 @@ function updateView(h, datamatrix, xdata, chanlocs)
     subj = get(h.subjpopup, 'Value');
 
     % clear axes and put them on hold for the multiple plots
-
     % y-min and y-max parameters
     ymax = str2num(get(h.ymaxedit, 'string'));
     ymin = str2num(get(h.yminedit, 'string'));
@@ -394,18 +395,15 @@ function updateView(h, datamatrix, xdata, chanlocs)
         hold off;
     end
 
-function extract_rawCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
-                             chanlocs, atype)
+function extract_rawCallback(~, ~, h, datamatrix, xdata, fnames, ...
+                             eventcount, chanlocs, atype)
 
-    outputtype = questdlg('Use an xls-file or separate csv-files for output?', ...
+    outputtype = questdlg('Use an xls-file or csv-files for output?', ...
                           'Output-file type', 'Xls', 'Csv', 'Xls');
-
 
     switch outputtype
         
         case 'Xls'
-
-            %%%%%%%%%%%%%%%%%%%%%%%%%% filecontrol-code %%%%%%%%%%%%%%%%%%%%%%%%%%%
             [filename, dpath, ~] = uiputfile('*.xls');
 
             % filename was gotten
@@ -429,12 +427,9 @@ function extract_rawCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
             close(hwait);
 
         case 'Csv'
-            
-            %%%%%%%%%%%%%%%%%%%%%%%%%% filecontrol-code %%%%%%%%%%%%%%%%%%%%%%%%%%%
             % get folder
             targetpath = uigetdir;
 
-            
             % folder was gotten
             if (targetpath == 0)
                 return;
@@ -455,12 +450,11 @@ function extract_rawCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
                 waitbar(i+j/length(datamatrix), hwait);
             end
 
-            close(hwait);
-            
+            close(hwait);            
     end
 
-function extractCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
-                         chanlocs, atype)
+function extractCallback(~, ~, h, datamatrix, xdata, fnames, ...
+                         eventcount, chanlocs, atype)
     % callback for the button save results
 
     % find first indice after 'xmin' and first before 'xmax' edit
@@ -473,7 +467,6 @@ function extractCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
     xmin = range(1);
     xmax = range(end);
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%% filecontrol-code %%%%%%%%%%%%%%%%%%%%%%%%%%%
     [filename, dpath, ~] = uiputfile('*.csv');
 
     % filename was gotten
@@ -488,7 +481,6 @@ function extractCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
         errordlg('Could not open the file for writing.');
         return;
     end
-    %%%%%%%%%%%%%%%%%%%%%%%%%% /filecontrol-code %%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % save header row to the file
     saveHeaderRow(fid, chanlocs, 'xmin', 'xmax', '', '');
@@ -502,14 +494,13 @@ function extractCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
 
     % loop through all subjects and their stimuluses and write to ->file
     for k = subjvector
-
         % take the desired sample out of the RES
        % SAMPLE = calcMetric(stype, datamatrix{k}(:, ind_xmin:ind_xmax), range); 
         SAMPLE = processMetricCalculation(h, xdata, datamatrix{k});
 
         writeSampleRow(fid, SAMPLE, fnames{k}, stype, atype, ...
-                       num2str(eventcount{k}), num2str(xmin), num2str(xmax), ...
-                       '', '');
+                       num2str(eventcount{k}), num2str(xmin), ...
+                       num2str(xmax), '', '');
     end
     fprintf(fid, '\n');
 
@@ -517,8 +508,8 @@ function extractCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
     fclose(fid);
 
 
-function topoplotCallback(~, ~, h, datamatrix, xdata, fnames, eventcount, ...
-                          chanlocs)
+function topoplotCallback(~, ~, h, datamatrix, xdata, fnames, ...
+                          eventcount, chanlocs)
     % saves result for the selected subj/stim/sampletype-combination
 
     subj = get(h.subjpopup, 'Value');
@@ -602,7 +593,8 @@ function hcurve = drawData(h, data, xdata, ymin, ymax, chanlocs, colornum)
 
         % put channel name text to the upper right corner
         text(xmax, ymax-0.1*(ymax-ymin), chanlocs(i).labels, ...
-                     'fontunits', 'normalized', 'fontsize', 0.25, 'horizontalalignment', 'right');
+             'fontunits', 'normalized', 'fontsize', 0.25, ...
+             'horizontalalignment', 'right');
 
         % set the limits
         axis(h.haxes(i), axlimits);
@@ -668,13 +660,14 @@ function legendCallback(~, ~, legendnum, h, datamatrix, xdata, chanlocs)
 
     % get parameters from gui
 
-    % find first indice after 'xmin' and first before 'xmax' edit -> sample range 
+    % first sample range
+    % find first indice after 'xmin' and first before 'xmax' edit
     ind_xmin = find(xdata{1}>=str2num(get(h.xmine, 'String')), 1, 'first');
     ind_xmax = find(xdata{1}<=str2num(get(h.xmaxe, 'String')), 1, 'last');
     range = xdata{1}(ind_xmin:ind_xmax);
-        
+    
     % second range
-    % find first indice after 'xmin' and first before 'xmax' edit -> sample range
+    % find first indice after 'xmin' and first before 'xmax' edit
     ind_xmin2 = find(xdata{1}>=str2num(get(h.xmine2, 'String')), 1, 'first');
     ind_xmax2 = find(xdata{1}<=str2num(get(h.xmaxe2, 'String')), 1, 'last');
     range2 = xdata{1}(ind_xmin2:ind_xmax2);

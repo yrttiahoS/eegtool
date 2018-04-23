@@ -1,4 +1,5 @@
-function [new_EEG, new_ev_val, removed_trials_ur] = rejectEpochsByTreshold(EEG, ev_val, treshold)
+function [new_EEG, new_ev_val, removed_trials_ur] = ...
+          rejectEpochsByTreshold(EEG, ev_val, treshold)
     % Reject epochs from epoched EEG-dataset and 2-dimensional
     % ev_val-matrix. Ev_val indicates which epochs are good and which are
     % bad.

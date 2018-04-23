@@ -28,7 +28,7 @@ function [EEG, ev_val] = removeEpoch(EEG, ev_val, rejected_epochs)
        return;
     end
 
-    %%%%%%%%%%%%%%FIX FOR THE EEGLAB BUG OF REMOVING TIME
+    % fix for eeglab bug of removing time
     times = EEG.times;
 
     % if epoch count goes down to one -> eeglab removes the (needed)
@@ -39,12 +39,10 @@ function [EEG, ev_val] = removeEpoch(EEG, ev_val, rejected_epochs)
     for i = epochindices
         epoch(i) = EEG.epoch(i);
     end
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
     % remove the selected epoch
     [EEG, ~] = pop_selectevent(EEG, 'omitepoch', rejected_epochs);
 
-    %%%%%%%%%%%%%%%%%%%%%% fix continues %%%%
     if(length(rejected_epochs) - EEG.trials == 0)
         EEG.times = times;
     end
@@ -56,7 +54,7 @@ function [EEG, ev_val] = removeEpoch(EEG, ev_val, rejected_epochs)
         EEG.epoch = epoch(notrej);
     end
 
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % /bugfix
 
     % update the ev_val-table to correspond to the new epoch-count
     ev_val(:,rejected_epochs) = [];

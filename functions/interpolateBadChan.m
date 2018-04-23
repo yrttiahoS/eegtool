@@ -24,7 +24,6 @@ function [interpd_EEG, interpd_ev_val] = interpolateBadChan(EEG, ev_val)
         % pop_selectevent(ALLEEG, 'event', i);
         % decided to do this with my own conversion because it proved to
         % be easier
-        %%%%%%%%%%%%%%%%%%%%%%%%
         temp_EEG = EEG;
 
         % set trials value to be 1 etc.
@@ -34,7 +33,6 @@ function [interpd_EEG, interpd_ev_val] = interpolateBadChan(EEG, ev_val)
 
         % make it so that it has only 1 epoch data in data-section
         temp_EEG.data = temp_EEG.data(:,:,k);
-        %%%%%%%%%%%%%%%%%%%%%%%%
 
         badchans = find(ev_val(:,k));
 
